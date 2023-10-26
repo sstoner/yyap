@@ -1,4 +1,4 @@
-import {defineType} from 'sanity'
+import {defineArrayMember, defineField, defineType} from 'sanity'
 
 import authorType from './author'
 import blockContentType from './blockContent'
@@ -37,6 +37,35 @@ export default defineType({
         hotspot: true,
       },
     },
+    defineField({
+        name: 'overview',
+        description:
+          'Used both for the <meta> description tag for SEO, and the personal website subheader.',
+        title: 'Overview',
+        type: 'array',
+        of: [
+          // Paragraphs
+          defineArrayMember({
+            lists: [],
+            marks: {
+              annotations: [],
+              decorators: [
+                {
+                  title: 'Italic',
+                  value: 'em',
+                },
+                {
+                  title: 'Strong',
+                  value: 'strong',
+                },
+              ],
+            },
+            styles: [],
+            type: 'block',
+          }),
+        ],
+        validation: (rule) => rule.max(155).required(),
+    }),
     {
       name: 'categories',
       title: 'Categories',

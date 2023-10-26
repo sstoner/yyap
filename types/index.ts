@@ -77,6 +77,7 @@ export interface Post {
   mainImage?: Image,
   categories?: Category[],
   title?: string,
+  overview?: PortableTextBlock[]
   _updatedAt?: string,
   author?: string,
   _createdAt?: string,
@@ -97,7 +98,9 @@ export interface PostPayload {
   title?: string
   _rev?: string
   _type?: string
+  overview?: PortableTextBlock[]
   body?: PortableTextBlock[]
+  mainImage?: Image,
   _updatedAt?: string
   slug?: Slug
   author?: string

@@ -1,4 +1,5 @@
 import { CustomPortableText } from 'components/shared/CustomPortableText'
+import ImageBox from './ImageBox'
 
 interface HeaderProps {
   centered?: boolean
@@ -11,7 +12,7 @@ export function Header(props: HeaderProps) {
     return null
   }
   return (
-    <div className={`${centered ? 'text-center' : 'w-5/6 lg:w-3/5'}`}>
+    <div className={`${centered ? 'text-center' : 'w-5/6 lg:w-3/5'} pb-4`}>
       {/* Title */}
       {title && (
         <div className="text-3xl font-extrabold tracking-tight md:text-5xl">
