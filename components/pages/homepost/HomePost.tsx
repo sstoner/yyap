@@ -20,7 +20,7 @@ export async function HomePost({ data }: HomePostProps) {
         {/* {"title" && <Header centered title={"title"} description={""} />} */}
         {/* Showcase posts */}
         {posts && posts.length > 0 && (
-          <div className="mx-auto max-w-[100rem] rounded-md border">
+          <div className="mx-auto max-w-[50rem] rounded-md border">
             {
               posts.map((post, key) => {
                 const href = resolveHref(post._type, post.slug?.current)

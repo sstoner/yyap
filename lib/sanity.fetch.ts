@@ -125,6 +125,7 @@ export function getPosts() {
     tags: [],
   })
 }
+
 export function getPostBySlug(slug: string) {
   return sanityFetch<PostPayload | null>({
     query: postBySlugQuery,

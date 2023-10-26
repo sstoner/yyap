@@ -73,6 +73,8 @@ export const homePostsQuery = groq`
       slug,
       mainImage,
       title,
+      overview,
+      catetories,
       _updatedAt,
       author,
       _createdAt,
