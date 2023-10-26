@@ -100,6 +100,7 @@ export interface PostPayload {
   _type?: string
   overview?: PortableTextBlock[]
   body?: PortableTextBlock[]
+  mainImage?: Image,
   _updatedAt?: string
   slug?: Slug
   author?: string

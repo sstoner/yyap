@@ -26,7 +26,9 @@ export default function Navbar(props: NavbarProps) {
               }`}
               href={href}
             >
-              {menuItem.title}
+              <button className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">
+                {menuItem.title}
+              </button>
             </Link>
           )
         })}

@@ -6,6 +6,7 @@ import { defineMetadata } from "lib/utils.metadata";
 import { Metadata } from "next";
 import LiveQuery from "next-sanity/preview/live-query";
 import { draftMode } from "next/headers";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 type Props = {
@@ -15,8 +16,19 @@ type Props = {
 export default async function PostsRoute({ params }: Props) {
     const data = await getPosts()
     if (!data && !draftMode().isEnabled) {
-        notFound()
-      }
+      return (
+        <div className="text-center">
+          You don&rsquo;t have a homepost document yet,{' '}
+          <Link
+            href="/studio/desk/home%7C%2Cview%3Dpreview"
+            className="underline"
+          >
+            create one now
+          </Link>
+          !
+        </div>
+      )
+    }
     
     return (
         <LiveQuery

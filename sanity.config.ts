@@ -24,6 +24,8 @@ import post from 'schemas/documents/post'
 import author from 'schemas/documents/author'
 import category from 'schemas/documents/category'
 import blockContent from 'schemas/documents/blockContent'
+import {media} from 'sanity-plugin-media'
+import { SanityDocument } from 'next-sanity'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
@@ -33,6 +35,7 @@ export const PREVIEWABLE_DOCUMENT_TYPES = [
   home.name,
   page.name,
   project.name,
+  post.name,
 ] satisfies string[]
 
 export const PREVIEWABLE_DOCUMENT_TYPES_REQUIRING_SLUGS = [
@@ -94,6 +97,20 @@ export default defineConfig({
             S.view.component(Iframe).options(iframeOptions).title('Preview'),
           ])
         }
+        switch (schemaType) {
+          case `post`:
+            return S.document().views([
+              S.view.form(),
+              S.view
+                .component(Iframe)
+                .options({
+                  url: (doc: SanityDocument) => getPreviewUrl(doc),
+                })
+                .title('Preview'),
+            ])
+          default:
+            return S.document().views([S.view.form()])
+        }
 
         return null
       },
@@ -112,5 +129,15 @@ export default defineConfig({
     // Vision lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
+    // Media browser 
+    // https://www.sanity.io/plugins/sanity-plugin-media
+    media(),
   ],
 })
+
+// Customise this function to show the correct URL based on the current document
+function getPreviewUrl(doc: SanityDocument) {
+  return doc?.slug?.current
+    ? `${window.location.host}/${doc.slug.current}`
+    : `${window.location.host}`
+}

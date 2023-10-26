@@ -85,6 +85,7 @@ export const postBySlugQuery = groq`
   *[_type == "post" && slug.current == $slug][0] {
     _id,
     body,
+    mainImage,
     overview,
     title,
     "slug": slug.current,
