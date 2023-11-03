@@ -37,6 +37,7 @@ export default defineType({
         decorators: [
           {title: 'Strong', value: 'strong'},
           {title: 'Emphasis', value: 'em'},
+          { title: 'Highlight', value: 'highlight',icon: () => 'H'}
         ],
         // Annotations can be any object structure – e.g. a link or a footnote.
         annotations: [
@@ -62,5 +63,19 @@ export default defineType({
       type: 'image',
       options: {hotspot: true},
     },
+    {
+      type: 'code',
+      name: 'myCodeField',
+      title: 'Code with all options',
+      options: {
+        language: 'javascript',
+        languageAlternatives: [
+          {title: 'Javascript', value: 'javascript'},
+          {title: 'HTML', value: 'html'},
+          {title: 'CSS', value: 'css'},
+        ],
+        withFilename: true,
+      },
+    }
   ],
 })

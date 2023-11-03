@@ -16,6 +16,7 @@ const config = {
   },
   experimental: {
     logging: 'verbose',
+    appDir: 'true',
   },
 }
 

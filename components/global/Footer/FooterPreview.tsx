@@ -1,5 +1,3 @@
-'use client'
-
 import dynamic from 'next/dynamic'
 
 // Re-exported components using next/dynamic ensures they're not bundled

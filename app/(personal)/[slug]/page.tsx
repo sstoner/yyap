@@ -13,6 +13,7 @@ import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { LiveQuery } from 'next-sanity/preview/live-query'
+import AboutPage from 'components/pages/page/AboutPage'
 
 export const runtime = 'edge'
 
@@ -57,7 +58,11 @@ export default async function PageSlugRoute({ params }: Props) {
       initialData={data}
       as={PagePreview}
     >
-      <Page data={data} />
+      {data && data.slug == 'about' ? (
+        <AboutPage data={data} />
+      ) : (
+        <Page data={data} />
+      )}
     </LiveQuery>
   )
-}
+      }

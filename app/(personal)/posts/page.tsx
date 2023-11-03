@@ -1,3 +1,4 @@
+import { Navbar } from "components/global/Navbar";
 import HomePost from "components/pages/homepost/HomePost";
 import HomePostPreview from "components/pages/homepost/HomePostPreview";
 import { getPosts } from "lib/sanity.fetch";

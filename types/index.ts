@@ -101,6 +101,7 @@ export interface PostPayload {
   overview?: PortableTextBlock[]
   body?: PortableTextBlock[]
   mainImage?: Image,
+  categories?: Category[],
   _updatedAt?: string
   slug?: Slug
   author?: string

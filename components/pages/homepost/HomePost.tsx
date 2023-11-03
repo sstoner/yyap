@@ -15,7 +15,7 @@ export async function HomePost({ data }: HomePostProps) {
   const posts = convertDataToHomePostPayload(data).posts
 
   return (
-      <div className="space-y-20">
+      <div className="mt-20">
         {/* Header */}
         {/* {"title" && <Header centered title={"title"} description={""} />} */}
         {/* Showcase posts */}
@@ -42,8 +42,11 @@ export async function HomePost({ data }: HomePostProps) {
 }
 
 function convertDataToHomePostPayload(data: any): HomePostPayload {
+  // Sort posts by date, newest first
+  const posts = data.sort((a, b) => new Date(b._createdAt).getTime() - new Date(a._createdAt).getTime())
+
   return {
-    posts: data
+    posts: posts
   }
 }
 
