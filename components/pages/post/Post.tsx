@@ -1,44 +1,48 @@
-import { CustomPortableText } from "components/shared/CustomPortableText"
+"use client";
+
 import { Header } from "components/shared/Header"
 import { PostBody } from "components/shared/PostBody"
 import { urlForImage } from "lib/sanity.image"
 import { PostPayload } from "types"
+import { Parallax, useParallaxController,ParallaxProvider} from 'react-scroll-parallax';
+import { Footer } from "components/global/Footer";
 
+// import React from 'react';
 export interface PostProps {
     data: PostPayload | null
-    width?: number
-    height?: number
 }
 
-export function Post({
-    data,
-    width = 3500,
-    height = 2000,
-}: PostProps ) {
+export default function Post({ data }: PostProps) {
     const { body, author, overview, mainImage, title } = data ?? {}
-    const imageUrl =  
-        mainImage && urlForImage(mainImage)?.height(height).width(width).fit('scale').url()
-    const centered = true
+    const imageUrl = mainImage && urlForImage(mainImage)?.auto('format').fit('scale').url()
     return (
-        <div className="container">
-          <div className="mb-14">
-            {/* Header */}
-            <div className="md:container md:mx-auto pl-20 pr-20">
-                <div className={`${centered ? 'text-center' : 'w-5/6 lg:w-3/5'} pb-20 pt-20`} style={{    
-                    backgroundImage: imageUrl ? `url(${imageUrl})` : 'none',
-                    backgroundSize: 'cover',
-                    backgroundRepeat: 'no-repeat',
-                    backgroundPosition: 'center',
-                }}>
-                   <Header title={title}  centered={true} description={overview} />
+        /* heropattern */
+        <div className="heropattern-floatingcogs-blue-100/50">
+        <div className="">
+                <ParallaxProvider >
+                    <Parallax className="w-full h-screen bg-center bg-no-repeat bg-cover" style={{    
+                        backgroundImage: imageUrl ? `url(${imageUrl})` : 'none',
+                        // fit full screen, not just the container
+                        // backgroundSize: '100%',
+                        // backgroundRepeat: 'no-repeat',
+                        // backgroundPosition: 'center',
+                        backgroundAttachment: 'fixed',
+                        // backgroundPositionX: 'center',
+                        // backgroundPositionY: 'center',
+                        // height: '100vh',
+                        // width: '100vw',
+                        // position: 'relative',
+                    }}>
+                    </Parallax>
+                </ParallaxProvider>
+                <div className="mt-20">
+                    <Header title={title}  centered={true} description={overview} />
                 </div>
-            </div>
-            {/* Body */}
-            <PostBody body={body}></PostBody>
-          </div>
-          <div className="absolute left-0 w-screen border-t" />
+                <div className="mb-20">
+                    <PostBody body={body} />
+                </div>
         </div>
-      )
+        </div>
+    )
 }
 
-export default Post

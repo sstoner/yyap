@@ -3,6 +3,7 @@ import type { PortableTextBlock } from '@portabletext/types'
 import ImageBox from 'components/shared/ImageBox'
 import { TimelineSection } from 'components/shared/TimelineSection'
 import { Image } from 'sanity'
+import SyntaxHighlighter from 'react-syntax-highlighter';
 
 export function CustomPortableText({
   paragraphClasses,
@@ -14,7 +15,26 @@ export function CustomPortableText({
   const components: PortableTextComponents = {
     block: {
       normal: ({ children }) => {
-        return <p className={paragraphClasses}>{children}</p>
+        return <p className={`${paragraphClasses} p-1`}>{children}</p>
+      },
+      h1: ({ children }) => {
+        return <h1 className={`${paragraphClasses} text-4xl font-bold p-1`}>{children}</h1>
+      },
+      h2: ({ children }) => {
+        return <h2 className={`${paragraphClasses} text-3xl font-bold p-1`}>{children}</h2>
+      },
+      h3: ({ children }) => {
+        return <h3 className={`${paragraphClasses} text-2xl font-bold p-1`}>{children}</h3>
+      },
+      h4: ({ children }) => {
+        return <h4 className={`${paragraphClasses} text-xl font-bold p-1`}>{children}</h4>
+      },
+      blockquote: ({ children }) => {
+        return (
+          <blockquote className="text-xl italic font-serif text-gray-600">
+            {children}
+          </blockquote>
+        )
       },
     },
     marks: {
@@ -55,6 +75,13 @@ export function CustomPortableText({
         const { items } = value || {}
         return <TimelineSection timelines={items} />
       },
+      code: ({ value }) => {
+        return (
+          <SyntaxHighlighter language={'c'}>
+              {value}
+          </SyntaxHighlighter>
+        )
+      }
     },
   }
 

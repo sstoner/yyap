@@ -17,6 +17,8 @@ export async function generateMetadata(): Promise<Metadata> {
   return defineMetadata({
     description: page?.overview ? toPlainText(page.overview) : '',
     image: settings?.ogImage,
+    // use this https://api.iconify.design/material-symbols/360.svg
+    // image: img,
     title: page?.title,
   })
 }

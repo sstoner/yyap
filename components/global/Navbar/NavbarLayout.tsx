@@ -26,7 +26,7 @@ export default function Navbar(props: NavbarProps) {
               }`}
               href={href}
             >
-              <button className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">
+              <button className="elevation-1 transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300">
                 {menuItem.title}
               </button>
             </Link>
