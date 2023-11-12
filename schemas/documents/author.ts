@@ -1,4 +1,4 @@
-import {defineType} from 'sanity'
+import { defineType } from 'sanity'
 
 export default defineType({
   name: 'author',
@@ -35,7 +35,7 @@ export default defineType({
         {
           title: 'Block',
           type: 'block',
-          styles: [{title: 'Normal', value: 'normal'}],
+          styles: [{ title: 'Normal', value: 'normal' }],
           lists: [],
         },
       ],

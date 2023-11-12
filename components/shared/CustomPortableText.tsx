@@ -2,8 +2,8 @@ import { PortableText, PortableTextComponents } from '@portabletext/react'
 import type { PortableTextBlock } from '@portabletext/types'
 import ImageBox from 'components/shared/ImageBox'
 import { TimelineSection } from 'components/shared/TimelineSection'
+import SyntaxHighlighter from 'react-syntax-highlighter'
 import { Image } from 'sanity'
-import SyntaxHighlighter from 'react-syntax-highlighter';
 
 export function CustomPortableText({
   paragraphClasses,
@@ -18,16 +18,32 @@ export function CustomPortableText({
         return <p className={`${paragraphClasses} p-1`}>{children}</p>
       },
       h1: ({ children }) => {
-        return <h1 className={`${paragraphClasses} text-4xl font-bold p-1`}>{children}</h1>
+        return (
+          <h1 className={`${paragraphClasses} text-4xl font-bold p-1`}>
+            {children}
+          </h1>
+        )
       },
       h2: ({ children }) => {
-        return <h2 className={`${paragraphClasses} text-3xl font-bold p-1`}>{children}</h2>
+        return (
+          <h2 className={`${paragraphClasses} text-3xl font-bold p-1`}>
+            {children}
+          </h2>
+        )
       },
       h3: ({ children }) => {
-        return <h3 className={`${paragraphClasses} text-2xl font-bold p-1`}>{children}</h3>
+        return (
+          <h3 className={`${paragraphClasses} text-2xl font-bold p-1`}>
+            {children}
+          </h3>
+        )
       },
       h4: ({ children }) => {
-        return <h4 className={`${paragraphClasses} text-xl font-bold p-1`}>{children}</h4>
+        return (
+          <h4 className={`${paragraphClasses} text-xl font-bold p-1`}>
+            {children}
+          </h4>
+        )
       },
       blockquote: ({ children }) => {
         return (
@@ -76,12 +92,8 @@ export function CustomPortableText({
         return <TimelineSection timelines={items} />
       },
       code: ({ value }) => {
-        return (
-          <SyntaxHighlighter language={'c'}>
-              {value}
-          </SyntaxHighlighter>
-        )
-      }
+        return <SyntaxHighlighter language={'c'}>{value}</SyntaxHighlighter>
+      },
     },
   }
 

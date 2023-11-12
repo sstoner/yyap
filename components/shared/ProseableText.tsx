@@ -1,11 +1,11 @@
-import React, {useMemo} from 'react'
 import { PortableText, PortableTextComponents } from '@portabletext/react'
+import React, { useMemo } from 'react'
 
 /**
  * Use Tailwind CSS's `prose` classes with Portable Text markup (blocks)
  * Without inheriting styles for custom components (types)
  */
-export default function ProseableText({value = [], components = {}}) {
+export default function ProseableText({ value = [], components = {} }) {
   // Group together standard `_type === "block"`  blocks
   // eg <p>, <li>, etc – and separate out everyone else
   const valueGroups = useMemo(
@@ -28,9 +28,9 @@ export default function ProseableText({value = [], components = {}}) {
 
           return acc
         },
-        [[]]
+        [[]],
       ),
-    [blocks]
+    [blocks],
   )
 
   if (!valueGroups?.length) return null
@@ -41,7 +41,7 @@ export default function ProseableText({value = [], components = {}}) {
         <PortableText value={group} />
       </div>
     ) : (
-      <PortableText key={group[0]._key} value={group} components={components}/>
-    )
+      <PortableText key={group[0]._key} value={group} components={components} />
+    ),
   )
 }

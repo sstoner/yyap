@@ -27,13 +27,13 @@ export function PostListItem(props: PostProps) {
         />
       </div>
       <div className="w-1/2 xl:w-1/4 flex flex-col">
-        <TextBox Post={post}/>
+        <TextBox Post={post} />
       </div>
     </div>
   )
 }
 
-function TextBox({ Post }: { Post: Post }) {  
+function TextBox({ Post }: { Post: Post }) {
   return (
     <div className="relative mt-2 flex w-full flex-col justify-between p-3 xl:mt-0 h-full overflow-hidden">
       {/* Title */}
@@ -46,14 +46,19 @@ function TextBox({ Post }: { Post: Post }) {
       </div>
       {/* Tags */}
       <div className="mt-1 flex flex-row gap-x-2">
-        {Post.categories?.map((tag, key) => (
-          client.fetch(`*[_type == "category" && _id == "${tag._ref}"][0]`).then((res) => (
-            <div className="text-sm font-medium lowercase md:text-lg" key={key}>
-              <div className="inline-block bg-green-100 rounded-full px-1 py-0.5 text-sm font-semibold text-gray-700 mr-2 mb-2">
-                #{res.title}
+        {Post.categories?.map((tag, key) =>
+          client
+            .fetch(`*[_type == "category" && _id == "${tag._ref}"][0]`)
+            .then((res) => (
+              <div
+                className="text-sm font-medium lowercase md:text-lg"
+                key={key}
+              >
+                <div className="inline-block bg-green-100 rounded-full px-1 py-0.5 text-sm font-semibold text-gray-700 mr-2 mb-2">
+                  #{res.title}
+                </div>
               </div>
-            </div>
-          )))
+            )),
         )}
       </div>
     </div>

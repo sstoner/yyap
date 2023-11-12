@@ -23,15 +23,15 @@ export default async function IndexRoute({
   const layout = (
     <div className="flex min-h-screen flex-col bg-white text-black">
       {isDraftMode && <PreviewBanner />}
-      <Suspense>
+      {/* <Suspense>
         <Navbar />
-      </Suspense>
+      </Suspense> */}
       {/* <div className="mt-0 flex-grow px-4 md:px-16 lg:px-32"> */}
-      <div className='flex-grow px-0 py-0'>
+      <div className="flex-grow px-0 py-0">
         <Suspense>{children}</Suspense>
       </div>
       <Suspense>
-        <div className='flex px-0 py-0'>
+        <div className="flex px-0 py-0">
           <Footer />
         </div>
       </Suspense>

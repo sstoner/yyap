@@ -24,16 +24,16 @@ import post from 'schemas/documents/post'
 import author from 'schemas/documents/author'
 import category from 'schemas/documents/category'
 import blockContent from 'schemas/documents/blockContent'
-import {media} from 'sanity-plugin-media'
+import { media } from 'sanity-plugin-media'
 import { SanityDocument } from 'next-sanity'
-import {codeInput} from '@sanity/code-input'
+import { codeInput } from '@sanity/code-input'
 import {
   dashboardTool,
   sanityTutorialsWidget,
   projectUsersWidget,
   projectInfoWidget,
-} from "@sanity/dashboard";
-import { netlifyWidget } from "sanity-plugin-dashboard-widget-netlify";
+} from '@sanity/dashboard'
+import { netlifyWidget } from 'sanity-plugin-dashboard-widget-netlify'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
@@ -89,30 +89,13 @@ export default defineConfig({
     ],
   },
   plugins: [
-    dashboardTool({ widgets: [
-      // sanityTutorialsWidget(),
-      projectUsersWidget(),
-      projectInfoWidget(),
-      netlifyWidget({
-        title: 'HomeLab',
-        sites: [
-          {
-            title: 'Blackpig',
-            apiId: 'xxxxx-yyyy-zzzz-xxxx',
-            buildHookId: 'xxxyyyxxxyyyyxxxyyy',
-            name: 'sanity-gatsby-blog-20-studio',
-            url: "https://blackpig.info:5001"
-          },
-          {
-            title: 'Emby',
-            apiId: 'yyyyy-xxxxx-zzzz-xxxx-yyyyyyyy',
-            buildHookId: 'yyyyxxxxxyyyxxdxxx',
-            name: 'sanity-gatsby-blog-20-web',
-            url: 'https://blackpig.info:8920',
-          }
-        ]
-      }),
-    ]}),
+    dashboardTool({
+      widgets: [
+        // sanityTutorialsWidget(),
+        projectUsersWidget(),
+        projectInfoWidget(),
+      ],
+    }),
     codeInput(),
     deskTool({
       structure: pageStructure([home, settings]),
@@ -162,7 +145,7 @@ export default defineConfig({
     // Vision lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
-    // Media browser 
+    // Media browser
     // https://www.sanity.io/plugins/sanity-plugin-media
     media(),
   ],

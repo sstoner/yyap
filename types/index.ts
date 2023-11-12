@@ -71,17 +71,17 @@ export interface HomePostPayload {
 
 export interface Post {
   _type?: string
-  body?: PortableTextBlock[],
-  excerpt?: string,
-  slug?: Slug,
-  mainImage?: Image,
-  categories?: Category[],
-  title?: string,
+  body?: PortableTextBlock[]
+  excerpt?: string
+  slug?: Slug
+  mainImage?: Image
+  categories?: Category[]
+  title?: string
   overview?: PortableTextBlock[]
-  _updatedAt?: string,
-  author?: string,
-  _createdAt?: string,
-  }
+  _updatedAt?: string
+  author?: string
+  _createdAt?: string
+}
 
 export interface Category {
   _type: string
@@ -100,8 +100,8 @@ export interface PostPayload {
   _type?: string
   overview?: PortableTextBlock[]
   body?: PortableTextBlock[]
-  mainImage?: Image,
-  categories?: Category[],
+  mainImage?: Image
+  categories?: Category[]
   _updatedAt?: string
   slug?: Slug
   author?: string

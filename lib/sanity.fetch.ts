@@ -5,13 +5,13 @@ import { client } from 'lib/sanity.client'
 import {
   homePageQuery,
   homePageTitleQuery,
+  homePostsQuery,
   pagePaths,
   pagesBySlugQuery,
-  homePostsQuery,
+  postBySlugQuery,
   projectBySlugQuery,
   projectPaths,
   settingsQuery,
-  postBySlugQuery,
 } from 'lib/sanity.queries'
 import { draftMode } from 'next/headers'
 import type {

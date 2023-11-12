@@ -30,7 +30,7 @@ export function defineMetadata({
     themeColor: '#000',
     icons: {
       // icon: [{ url: '/icon.png' }, new URL('https://api.iconify.design/tdesign/doge.svg')],
-      icon: [ new URL('https://api.iconify.design/tdesign/doge.svg') ]
+      icon: [new URL('https://api.iconify.design/tdesign/doge.svg')],
     },
     description,
     openGraph: imageUrl

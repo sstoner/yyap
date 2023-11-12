@@ -1,4 +1,5 @@
 import { toPlainText } from '@portabletext/react'
+import AboutPage from 'components/pages/page/AboutPage'
 import { Page } from 'components/pages/page/Page'
 import PagePreview from 'components/pages/page/PagePreview'
 import {
@@ -13,7 +14,6 @@ import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { LiveQuery } from 'next-sanity/preview/live-query'
-import AboutPage from 'components/pages/page/AboutPage'
 
 export const runtime = 'edge'
 
@@ -65,4 +65,4 @@ export default async function PageSlugRoute({ params }: Props) {
       )}
     </LiveQuery>
   )
-      }
+}

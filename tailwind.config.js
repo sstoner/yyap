@@ -1,4 +1,4 @@
-const { theme } = require('@sanity/demo/tailwind');
+const { theme } = require('@sanity/demo/tailwind')
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -15,18 +15,15 @@ module.exports = {
       serif: 'var(--font-serif)',
     },
     extend: {
-      heroPatterns: {
-      },
+      heroPatterns: {},
     },
   },
   plugins: [
     require('@tailwindcss/typography'),
     require('tailwindcss-hero-patterns'),
-    require('tailwindcss-elevation')(
-      {
-        color: '240,248,255', // This is the RGB value for a light shade of blue.
-        opacityBoost: '0.23'
-      }
-    ),
+    require('tailwindcss-elevation')({
+      color: '240,248,255', // This is the RGB value for a light shade of blue.
+      opacityBoost: '0.23',
+    }),
   ],
 }
