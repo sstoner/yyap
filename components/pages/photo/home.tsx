@@ -2,44 +2,69 @@
 import SynoPhoto from "components/shared/SynoPhoto";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { motion } from 'framer-motion';
+
+function LoadingSpinner() {
+    return (
+        <motion.div
+            className="w-12 h-12 border-t-4 border-blue-500 rounded-full animate-spin"
+            style={{ borderRightColor: 'transparent' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+        />
+    );
+}
 
 export function Cover({ albums }) {
     const [covers, setCovers] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
+    const fetchedAlbums = new Set();
+
     useEffect(() => {
         async function fetchAlbums() {
-            let covers = []
+            let covers = [];
             for (const album of albums) {
-                const album_id = getLastPartOfUrl(album.sharedAlbumUrl)
-                const cover = await getCover(album_id);
-                //construct slugURL, should append to /photos/
-                const slugUrl = "/photos/" + album.slug.current;
-                covers = covers.concat({ cover, album_id, slugUrl });
+                const album_id = getLastPartOfUrl(album.sharedAlbumUrl);
+                if (!fetchedAlbums.has(album_id)) {
+                    const cover = await getCover(album_id);
+                    const slugUrl = "/photos/" + album.slug.current;
+                    covers = covers.concat({ cover, album_id, slugUrl });
+                    fetchedAlbums.add(album_id);
+                }
             }
             setCovers(covers);
+            setIsLoading(false);
         }
 
         fetchAlbums();
-
     }, []);
 
 
+    if (isLoading) {
+        return <LoadingSpinner />;
+    }
+
     return (
-        <div className="container mx-auto px-4">
+        <motion.div className="container mx-auto px-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+        >
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 {covers.map((cover, index) => (
-                    <Link href={cover.slugUrl}>
-                        <SynoPhoto
-                            key={index}
-                            id={cover.cover.id}
-                            cache_key={cover.cover.cache_key}
-                            album_id={cover.album_id}
-                            size="sm"
-                            className="rounded overflow-hidden shadow-lg p-4"
-                        />
-                    </Link>
+                    <SynoPhoto
+                        id={cover.cover.id}
+                        cache_key={cover.cover.cache_key}
+                        album_id={cover.album_id}
+                        size="sm"
+                        className="rounded overflow-hidden shadow-lg p-4"
+                        key={index}
+                        href={cover.slugUrl}
+                    />
                 ))}
             </div>
-        </div>
+        </motion.div>
     );
 }
 
