@@ -106,3 +106,10 @@ export interface PostPayload {
   slug?: Slug
   author?: string
 }
+
+export interface Album {
+  _type?: string
+  name?: string
+  slug?: Slug
+  sharedAlbumUrl?: string
+}

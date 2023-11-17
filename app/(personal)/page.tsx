@@ -13,7 +13,7 @@ import { Suspense } from 'react'
 
 export const runtime = 'edge'
 
-export async function generateMetadata(): Promise<Metadata> {
+async function generateMetadata(): Promise<Metadata> {
   const [settings, page] = await Promise.all([getSettings(), getHomePage()])
 
   return defineMetadata({
@@ -43,9 +43,6 @@ export default async function IndexRoute() {
 
   return (
     <>
-      <Suspense>
-        <Navbar />
-      </Suspense>
       <LiveQuery
         enabled={draftMode().isEnabled}
         query={homePageQuery}

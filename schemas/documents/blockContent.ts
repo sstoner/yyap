@@ -1,4 +1,5 @@
-import { defineType } from 'sanity'
+import { defineField, defineType } from 'sanity'
+import { DocumentIcon, ImageIcon } from '@sanity/icons'
 /**
  * This is the schema definition for the rich text fields used for
  * for this blog studio. When you import it in schemas.js it can be
@@ -59,13 +60,38 @@ export default defineType({
     // You can add additional types here. Note that you can't use
     // primitive types such as 'string' and 'number' in the same array
     // as a block type.
-    {
+    defineField({
       type: 'image',
-      options: { hotspot: true },
-    },
-    {
+      icon: ImageIcon,
+      name: 'image',
+      title: 'Image',
+      options: {
+        hotspot: true,
+      },
+      preview: {
+        select: {
+          imageUrl: 'asset.url',
+          title: 'caption',
+        },
+      },
+      fields: [
+        defineField({
+          title: 'Caption',
+          name: 'caption',
+          type: 'string',
+        }),
+        defineField({
+          name: 'alt',
+          type: 'string',
+          title: 'Alt text',
+          description:
+            'Alternative text for screenreaders. Falls back on caption if not set',
+        }),
+      ],
+    }),
+    defineField({
       type: 'code',
-      name: 'myCodeField',
+      name: 'code',
       title: 'Code with all options',
       options: {
         language: 'javascript',
@@ -76,6 +102,6 @@ export default defineType({
         ],
         withFilename: true,
       },
-    },
+    })
   ],
 })

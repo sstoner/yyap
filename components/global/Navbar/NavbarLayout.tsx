@@ -61,17 +61,16 @@ export default function Navbar(props: NavbarProps) {
           return (
             <Link
               key={key}
-              className={`text-lg hover:text-black md:text-xl ${
-                menuItem?._type === 'home'
-                  ? 'font-extrabold text-black'
-                  : 'text-gray-600'
-              }`}
+              className={`text-lg hover:text-black md:text-xl ${menuItem?._type === 'home'
+                ? 'font-extrabold text-black'
+                : 'text-gray-600'
+                }`}
               href={href}
             >
               <motion.button
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
-                className="elevation-1 transition ease-in-out hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300"
+                className="transition ease-in-out hover:-translate-y-1 hover:scale-150 font-semibold text-lg"
               >
                 {menuItem.title}
               </motion.button>

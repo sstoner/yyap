@@ -1,10 +1,8 @@
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { NextRequest, NextResponse } from 'next/server'
-import { SynoAlbum, SynoClient } from '../../client'
+import { useAlbum } from 'hooks/useAlbum'
 
-
-// https://blackpig.info:5001/mo/sharing/${albumID}
 // syno/photo/thumbnail?albumID=xxxxx&id=xxxxx&cache_key=xxxxx&size=xxxxx
 // sid get by self
 export async function GET(req: NextRequest) {
@@ -17,8 +15,8 @@ export async function GET(req: NextRequest) {
   const size = searchParams.get('size') || ''
 
   try {
-    const synoclient = new SynoClient(albumID)
-    const album = new SynoAlbum(synoclient)
+    // const synoclient = new SynoClient(albumID)
+    const album = useAlbum(albumID)
     const response = album.login().then((): Promise<Response> => {
       return album.thumbnail({ id, cache_key, size })
     })

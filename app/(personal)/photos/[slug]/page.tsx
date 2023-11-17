@@ -1,28 +1,37 @@
 // import Album from "app/api/syno/photo/route";
 import { PhotoPage, } from "components/pages/photo/page";
+import { useAlbum } from "hooks/useAlbum";
+import { getSharedAlbumsBySlug } from "lib/sanity.fetch";
+import { draftMode } from "next/headers";
+import { notFound } from "next/navigation";
 
-type Props = {
-    params: { slug: string }
-}
-
-export async function generateMetadata({ params }: Props) {
+async function generateMetadata({ params }) {
     return {
         title: params.slug,
     }
 }
 
-export default function Index({ params }: Props) {
+export default async function PhotoSlugRoute({ params }) {
+    const data = await getSharedAlbumsBySlug(params.slug)
+    if (!data && !draftMode().isEnabled) {
+        notFound()
+    }
 
-    // get slug as album_id
+    const album_id = getLastPartOfUrl(data.sharedAlbumUrl)
+
+    // TODO: useAlbum hook
     return (
         <>
             <PhotoPage
-                album_id="06OvLCNBO"
-                size="xl"
+                album_id={album_id}
                 offset1={10}
-                limit={4}
+                limit={6}
             />
-            {/* <p>hi world!</p> */}
         </>
     )
+}
+
+export function getLastPartOfUrl(url) {
+    var parts = url.split("/");
+    return (parts.pop() || parts.pop());
 }

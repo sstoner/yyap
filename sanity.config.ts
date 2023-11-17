@@ -34,10 +34,11 @@ import {
   projectInfoWidget,
 } from '@sanity/dashboard'
 import { netlifyWidget } from 'sanity-plugin-dashboard-widget-netlify'
+import album from 'schemas/documents/album'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE ||
-  'Next.js Personal Website with Sanity.io'
+  'Blackpig'
 
 export const PREVIEWABLE_DOCUMENT_TYPES = [
   home.name,
@@ -83,6 +84,7 @@ export default defineConfig({
       blockContent,
       page,
       project,
+      album,
       // Objects
       milestone,
       timeline,

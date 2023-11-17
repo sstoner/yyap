@@ -1,25 +1,23 @@
 import { useAlbum } from "hooks/useAlbum"
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 
-
-// albumID, limit, offset
-export async function GET(req: Request) {
-    const searchParams = new URL(req.url).searchParams
-    const limit = searchParams.get('limit') || ''
-    const offset = searchParams.get('offset') || ''
+export async function GET(req: NextRequest) {
+    const searchParams = new URL(req.nextUrl).searchParams
     const albumID = searchParams.get('album_id') || ''
+    const id = searchParams.get('id') || ''
 
     try {
         // const synoclient = new SynoClient(albumID)
         const album = useAlbum(albumID)
         const response = album.login().then((): Promise<Response> => {
-            return album.info({ offset, limit })
+            return album.download({ id })
         })
-
         return response
-
     } catch (error) {
         console.log('An error occurred: ', error)
-        return new Response(error, { status: 500 })
+        return NextResponse.json({
+            status: 500,
+            error: error,
+        })
     }
 }

@@ -25,5 +25,6 @@ module.exports = {
       color: '240,248,255', // This is the RGB value for a light shade of blue.
       opacityBoost: '0.23',
     }),
+    require('flowbite/plugin'),
   ],
 }

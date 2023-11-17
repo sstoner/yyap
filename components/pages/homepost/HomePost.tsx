@@ -17,9 +17,6 @@ export async function HomePost({ data }: HomePostProps) {
 
   return (
     <div className="mt-20">
-      {/* Header */}
-      {/* {"title" && <Header centered title={"title"} description={""} />} */}
-      {/* Showcase posts */}
       {posts && posts.length > 0 && (
         <div className="mx-auto max-w-[50rem] rounded-md border">
           {posts.map((post, key) => {

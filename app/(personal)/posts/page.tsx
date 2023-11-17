@@ -1,7 +1,7 @@
 import { Navbar } from 'components/global/Navbar'
 import HomePost from 'components/pages/homepost/HomePost'
 import HomePostPreview from 'components/pages/homepost/HomePostPreview'
-import { getPosts } from 'lib/sanity.fetch'
+import { getPosts, getPostsPaths } from 'lib/sanity.fetch'
 import { homePostsQuery } from 'lib/sanity.queries'
 import { defineMetadata } from 'lib/utils.metadata'
 import { Metadata } from 'next'
@@ -13,6 +13,11 @@ import { Suspense } from 'react'
 
 type Props = {
   params: { slug: string }
+}
+
+export async function generateStaticParams() {
+  const slugs = await getPostsPaths()
+  return slugs.map((slug) => ({ slug }))
 }
 
 export default async function PostsRoute({ params }: Props) {
@@ -27,16 +32,12 @@ export default async function PostsRoute({ params }: Props) {
         >
           create one now
         </Link>
-        !
       </div>
     )
   }
 
   return (
     <>
-      <Suspense>
-        <Navbar />
-      </Suspense>
       <LiveQuery
         enabled={draftMode().isEnabled}
         // enabled={false}

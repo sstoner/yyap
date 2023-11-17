@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { useWindowDimensions } from './useWindowDimensions'
+import ThreeDots from './ContentLoader'
 
 export interface HeroProps {
   heroImageURL?: string
@@ -23,20 +25,28 @@ export default function Hero({ heroImageURL }: HeroProps) {
 
 export function HeroAnimation({ heroImageURL }: HeroProps) {
   return (
-    <div className="">
-      <motion.img
-        initial={{ x: 300, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{
-          type: 'smooth',
-          repeatType: 'mirror',
-          duration: 2,
-          repeat: 0,
-        }}
-        //    exit={{ x: -300, opacity: 0 }}
-        src={heroImageURL}
-        alt="floater"
-      />
-    </div>
+    <>
+      <a href={heroImageURL} target="_blank">
+        <div className="flex justify-center items-center">
+          <motion.img
+            initial={{ x: 0, opacity: 0 }}
+            animate={{ x: 0, opacity: 1, }}
+            transition={{
+              type: 'smooth',
+              repeatType: 'mirror',
+              duration: 1,
+              repeat: 0,
+            }}
+            //    exit={{ x: -300, opacity: 0 }}
+            src={heroImageURL}
+            alt="floater"
+            // width="1024"
+            // height="600"
+            //        style={{ height: '600px' }}
+            className="w-full h-64 md:h-96 object-cover"
+          />
+        </div >
+      </a>
+    </>
   )
 }

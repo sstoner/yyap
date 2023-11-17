@@ -9,12 +9,17 @@ import {
   pagePaths,
   pagesBySlugQuery,
   postBySlugQuery,
+  postPaths,
   projectBySlugQuery,
   projectPaths,
   settingsQuery,
+  sharedAlbumsBySlugQuery,
+  sharedAlbumsQuery,
 } from 'lib/sanity.queries'
+
 import { draftMode } from 'next/headers'
 import type {
+  Album,
   HomePagePayload,
   HomePostPayload,
   PagePayload,
@@ -111,6 +116,7 @@ export function getPagesPaths() {
     { token, perspective: 'published' },
   )
 }
+
 export function getProjectsPaths() {
   return client.fetch<string[]>(
     projectPaths,
@@ -126,10 +132,34 @@ export function getPosts() {
   })
 }
 
+export function getPostsPaths() {
+  return client.fetch<string[]>(
+    postPaths,
+    {},
+    { token, perspective: 'published' },
+  )
+}
+
 export function getPostBySlug(slug: string) {
   return sanityFetch<PostPayload | null>({
     query: postBySlugQuery,
     params: { slug },
     tags: [`post:${slug}`],
+  })
+}
+
+
+export function getSharedAlbums() {
+  return sanityFetch<Album[]>({
+    query: sharedAlbumsQuery,
+    tags: ['album'],
+  })
+}
+
+export function getSharedAlbumsBySlug(slug: string) {
+  return sanityFetch<Album>({
+    query: sharedAlbumsBySlugQuery,
+    params: { slug },
+    tags: [`album:${slug}`],
   })
 }

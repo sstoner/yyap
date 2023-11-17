@@ -2,7 +2,6 @@ import type { PortableTextBlock } from '@portabletext/types'
 import { CustomPortableText } from 'components/shared/CustomPortableText'
 import ImageBox from 'components/shared/ImageBox'
 import { client } from 'lib/sanity.client'
-import { Cedarville_Cursive } from 'next/font/google'
 import type { Post } from 'types'
 
 interface PostProps {
@@ -14,9 +13,8 @@ export function PostListItem(props: PostProps) {
   const { post, odd } = props
   return (
     <div
-      className={`flex flex-row gap-x-5 p-2 transition hover:bg-gray-50/50 xl:flex-row ${
-        odd && 'border-b border-t xl:flex-row-reverse'
-      }`}
+      className={`flex flex-row gap-x-5 p-2 transition hover:bg-gray-50/50 xl:flex-row ${odd && 'border-b border-t xl:flex-row-reverse'
+        }`}
       style={{ maxWidth: 'auto' }}
     >
       <div className="w-1/2 xl:w-9/12 flex flex-col">
@@ -58,7 +56,7 @@ function TextBox({ Post }: { Post: Post }) {
                   #{res.title}
                 </div>
               </div>
-            )),
+            ))
         )}
       </div>
     </div>

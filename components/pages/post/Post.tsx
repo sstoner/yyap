@@ -1,6 +1,8 @@
 'use client'
 
+import { motion } from 'framer-motion'
 import { Footer } from 'components/global/Footer'
+import ThreeDots from 'components/shared/ContentLoader'
 import { Header } from 'components/shared/Header'
 import Hero, { HeroAnimation } from 'components/shared/Hero'
 import { PostBody } from 'components/shared/PostBody'
@@ -24,16 +26,27 @@ export default function Post({ data }: PostProps) {
     mainImage && urlForImage(mainImage)?.auto('format').fit('scale').url()
   return (
     /* heropattern */
-    <div className="heropattern-floatingcogs-blue-100/50">
-      <div className="">
-        <HeroAnimation heroImageURL={imageUrl} />
-        <div className="mt-20">
-          <Header title={title} centered={true} description={overview} />
-        </div>
-        <div className="mb-20">
-          <PostBody body={body} />
-        </div>
+
+    <div className="">
+      <HeroAnimation heroImageURL={imageUrl} />
+      <motion.div
+        className="mt-20"
+        initial={{ x: 0, opacity: 0 }}
+        animate={{ x: 0, opacity: 1, }}
+        transition={{
+          type: 'smooth',
+          repeatType: 'mirror',
+          duration: 2,
+          repeat: 0,
+        }}
+      >
+        <Header title={title} centered={true} description={overview} />
+      </motion.div>
+
+      <div className="mb-20">
+        <PostBody body={body} />
       </div>
+
     </div>
   )
 }

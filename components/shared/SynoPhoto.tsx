@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { SynoPhotoProps } from "../../app/api/syno/photos";
 
 export default function SynoPhoto({ id, cache_key, album_id, size, className }) {
     const loading = false;
@@ -13,9 +12,21 @@ export default function SynoPhoto({ id, cache_key, album_id, size, className }) 
         '&cache_key=' +
         cache_key
 
+    const originalUrl = '/api/syno/photos/original?album_id=' +
+        album_id +
+        '&id=' +
+        id
+
+
+    const [hover, setHover] = useState(false);
     return (
         <div className={`shadow-lg rounded-lg overflow-hidden ${className}`}>
-            {loading ? <p>Loading...</p> : <img src={url} alt="thumbnail" className="w-full h-full object-cover" />}
+            <a href={originalUrl} target="_blank" rel="noopener noreferrer" className="group">
+                <img src={url} alt="thumbnail" className="w-full h-full object-cover" />
+                <div className="overlay group-hover:block hidden">
+                    <p>Click to view original</p>
+                </div>
+            </a>
         </div>
-    )
+    );
 }
