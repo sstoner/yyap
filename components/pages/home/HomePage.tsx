@@ -1,9 +1,9 @@
 import { ProjectListItem } from 'components/pages/home/ProjectListItem'
 import { Header } from 'components/shared/Header'
+import ScholarProfiles from 'components/shared/Scholar'
 import { resolveHref } from 'lib/sanity.links'
 import Link from 'next/link'
 import type { HomePagePayload } from 'types'
-import ScholarProfiles from 'components/shared/Scholar'
 
 export interface HomePageProps {
   data: HomePagePayload | null
@@ -14,7 +14,7 @@ export function HomePage({ data }: HomePageProps) {
   const { overview = [], showcaseProjects = [], title = '' } = data ?? {}
 
   return (
-    <div className='mt-20'>
+    <div className="mt-20">
       {/* Header */}
       {title && <Header centered title={title} description={overview} />}
       {/* Showcase projects */}

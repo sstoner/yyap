@@ -1,4 +1,4 @@
-import {defineArrayMember, defineField, defineType} from 'sanity'
+import { defineArrayMember, defineField, defineType } from 'sanity'
 
 import authorType from './author'
 import blockContentType from './blockContent'
@@ -27,7 +27,7 @@ export default defineType({
       name: 'author',
       title: 'Author',
       type: 'reference',
-      to: {type: authorType.name},
+      to: { type: authorType.name },
     },
     {
       name: 'mainImage',
@@ -38,39 +38,39 @@ export default defineType({
       },
     },
     defineField({
-        name: 'overview',
-        description:
-          'Used both for the <meta> description tag for SEO, and the personal website subheader.',
-        title: 'Overview',
-        type: 'array',
-        of: [
-          // Paragraphs
-          defineArrayMember({
-            lists: [],
-            marks: {
-              annotations: [],
-              decorators: [
-                {
-                  title: 'Italic',
-                  value: 'em',
-                },
-                {
-                  title: 'Strong',
-                  value: 'strong',
-                },
-              ],
-            },
-            styles: [],
-            type: 'block',
-          }),
-        ],
-        validation: (rule) => rule.max(155).required(),
+      name: 'overview',
+      description:
+        'Used both for the <meta> description tag for SEO, and the personal website subheader.',
+      title: 'Overview',
+      type: 'array',
+      of: [
+        // Paragraphs
+        defineArrayMember({
+          lists: [],
+          marks: {
+            annotations: [],
+            decorators: [
+              {
+                title: 'Italic',
+                value: 'em',
+              },
+              {
+                title: 'Strong',
+                value: 'strong',
+              },
+            ],
+          },
+          styles: [],
+          type: 'block',
+        }),
+      ],
+      validation: (rule) => rule.max(155).required(),
     }),
     {
       name: 'categories',
       title: 'Categories',
       type: 'array',
-      of: [{type: 'reference', to: {type: categoryType.name}}],
+      of: [{ type: 'reference', to: { type: categoryType.name } }],
     },
     {
       name: 'publishedAt',
@@ -91,8 +91,8 @@ export default defineType({
       media: 'mainImage',
     },
     prepare(selection: any) {
-      const {author} = selection
-      return {...selection, subtitle: author && `by ${author}`}
+      const { author } = selection
+      return { ...selection, subtitle: author && `by ${author}` }
     },
   },
 })

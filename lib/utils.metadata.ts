@@ -6,6 +6,12 @@ import type { Image } from 'sanity'
 /**
  * All the shared stuff that goes into <head> on `(personal)` routes, can be be imported by `page.tsx` files and used by `generateMetadata` functions.
  */
+
+export const viewport = {
+  width: 1,
+  themeColor: '#000',
+}
+
 export function defineMetadata({
   baseTitle,
   description,
@@ -27,16 +33,15 @@ export function defineMetadata({
 
   return {
     title: metaTitle || demo.title,
-    themeColor: '#000',
     icons: {
       // icon: [{ url: '/icon.png' }, new URL('https://api.iconify.design/tdesign/doge.svg')],
-      icon: [ new URL('https://api.iconify.design/tdesign/doge.svg') ]
+      icon: [new URL('https://api.iconify.design/tdesign/doge.svg')],
     },
     description,
     openGraph: imageUrl
       ? {
-          images: [imageUrl],
-        }
+        images: [imageUrl],
+      }
       : undefined,
   } satisfies Metadata
 }

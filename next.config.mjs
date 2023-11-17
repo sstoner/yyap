@@ -15,8 +15,8 @@ const config = {
     ignoreDuringBuilds: process.env.VERCEL_ENV === 'production',
   },
   experimental: {
-    logging: 'verbose',
-    appDir: 'true',
+    // logging: 'verbose',
+    // appDir: 'true',
   },
 }
 

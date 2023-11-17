@@ -53,6 +53,10 @@ export const pagePaths = groq`
   *[_type == "page" && slug.current != null].slug.current
 `
 
+export const postPaths = groq`
+  *[_type == "post" && slug.current != null].slug.current
+`
+
 export const settingsQuery = groq`
   *[_type == "settings"][0]{
     footer,
@@ -89,6 +93,24 @@ export const postBySlugQuery = groq`
     categories,
     overview,
     title,
+    "slug": slug.current,
+  }
+`
+
+export const sharedAlbumsQuery = groq`
+  *[_type == "album"]{
+      _type,
+      name,
+      sharedAlbumUrl,
+      slug
+  }
+`
+
+export const sharedAlbumsBySlugQuery = groq`
+  *[_type == "album" && slug.current == $slug][0] {
+    _type,
+    name,
+    sharedAlbumUrl,
     "slug": slug.current,
   }
 `
