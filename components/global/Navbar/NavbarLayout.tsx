@@ -1,5 +1,4 @@
 'use client'
-
 import { motion, useScroll } from 'framer-motion'
 import { resolveHref } from 'lib/sanity.links'
 import Link from 'next/link'

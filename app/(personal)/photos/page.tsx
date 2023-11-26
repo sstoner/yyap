@@ -12,16 +12,16 @@ async function generateMetadata({ params }) {
     }
 }
 
+
 export default async function Index({ params }) {
     const albums = await getSharedAlbums();
     if (!albums && !draftMode().isEnabled) {
         notFound()
     }
-
+    
     return (
         <>
-            <Cover
-                albums={albums}
+            <Cover albums={albums}
             />
         </>
     )

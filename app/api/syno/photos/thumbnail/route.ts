@@ -14,13 +14,16 @@ export async function GET(req: NextRequest) {
   const cache_key = searchParams.get('cache_key') || ''
   const size = searchParams.get('size') || ''
 
+  console.log(`-------------------------- debug: albumID: `, albumID,
+    `id: `, id,
+    `cache_key: `, cache_key,
+    `size: `, size,
+    )
   try {
     // const synoclient = new SynoClient(albumID)
     const album = useAlbum(albumID)
-    const response = album.login().then((): Promise<Response> => {
-      return album.thumbnail({ id, cache_key, size })
-    })
-    return response
+    return album.thumbnail({ id, cache_key, size })
+    
   } catch (error) {
     console.log('An error occurred: ', error)
     return NextResponse.json({

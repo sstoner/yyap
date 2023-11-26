@@ -27,7 +27,6 @@ export default async function IndexRoute({
       <Suspense><Navbar /></Suspense>
       <Suspense>{children}</Suspense>
 
-
       <div className="flex px-0 py-0">
         <Suspense>
           <Footer />
