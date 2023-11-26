@@ -8,6 +8,8 @@ import LoadMoreButton from 'components/shared/LoadMorePhotos';
 import Link from 'next/link';
 import AutoResponsive from 'autoresponsive-react';
 import { SimplestSampleComponent } from 'components/shared/SimpleAutoResponse';
+import { set } from 'sanity';
+import { useAlbum } from 'hooks/useAlbum';
 
 export function PhotoPage({ album_id, offset1, limit }:
   { album_id: string, size: string, offset1: number, limit: number }) {
@@ -25,16 +27,22 @@ export function PhotoPage({ album_id, offset1, limit }:
   const loaderRef = useRef(null);
 
   const [error, setError] = useState(null);
+  
   const fetchData = useCallback(async () => {
     if (isLoading) return;
     setIsLoading(true);
     try {
-      fetch(`/api/syno/photos?album_id=${album_id}&offset=${offset}&limit=${limit}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setPhotos(photos.concat(data.data.list));
-          setOffset(offset + limit);
-        });
+      const album = useAlbum(album_id);
+      const data = await album.info({offset, limit}).then((resp) => {
+        return resp.json();
+      });
+
+      data.data.list.map((photo) => {
+        // construct photo url
+        const url = `/api/syno/photo?album_id=${album_id}&cache_key=${photo.cache_key}&size=${size}`;
+        setPhotos(photos.concat({ url }));
+      });
+      setOffset(offset + limit);
     } catch (err) {
       console.log(err);
       setError(err.message);
@@ -74,17 +82,17 @@ export function PhotoPage({ album_id, offset1, limit }:
 
   const containerRef = useRef(null);
   return (
-    <div className="container mx-auto px-4">
+    <div className="container px-4 mx-auto">
       {error && <div className="text-red-500">{error}</div>}
       <div className="grid grid-cols-3 gap-4">
         {photos.map((photo, index) => (
-          <div className="rounded overflow-hidden shadow-lg p-4">
+          <div className="p-4 overflow-hidden rounded shadow-lg">
             <SynoPhoto
               id={photo.id}
               cache_key={photo.cache_key}
               album_id={album_id}
               size={size}
-              className="w-full object-scale-down"
+              className="object-scale-down w-full"
             />
           </div>
         ))}

@@ -34,20 +34,16 @@ export class SynoAlbum implements Album {
     // this.client = client
     this.albumID = album_id
     this.endpoint = api_url
-    this.login()
   }
 
   async login(): Promise<any> {
-    if (!this.sid) {
-      try {
-        const sid = await fetch_sharing_login(this)
-        this.set_sid(sid.data.sharing_sid)
-      } catch (error) {
-        console.error('error', error)
-        // clear sid 
-        this.set_sid('')
-        throw error
-      }
+    if (!this.sid || this.sid === '') {
+        await fetch_sharing_login(this).then(
+          (res) => {
+            this.set_sid(res.data.sharing_sid)
+            return this.sid
+          },
+        )
     }
 
     return this.sid
@@ -68,15 +64,23 @@ export class SynoAlbum implements Album {
   }
 
   async info({ offset, limit }): Promise<any> {
-    return fetch_browse_item(this, offset, limit)
+    return this.login().then(
+      (res) => {
+        return fetch_browse_item(this, offset, limit)
+      },
+    );
   }
 
   async thumbnail({ id, cache_key, size }): Promise<any> {
-    return fetch_thumbnail(id, cache_key, this, size)
+    return this.login().then((res) => {  
+      return fetch_thumbnail(id, cache_key, this, size)
+    })
   }
 
   async download({ id }): Promise<any> {
-    return fetch_download(id, this)
+    return this.login().then((res) => {
+      return fetch_download(id, this)
+    })
   }
 }
 
@@ -250,7 +254,7 @@ async function fetch_sharing_login(client: Album): Promise<any> {
       myHeaders: myHeaders,
       body: urlencoded,
     }).then((response) => {
-      if (!response.ok) {
+      if (!response.ok || response.success === false) {
         throw new Error(`HTTP error! status: ${response.status}`)
       }
       return response.json()

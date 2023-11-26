@@ -17,28 +17,28 @@ function LoadingSpinner() {
 }
 
 export function Cover({ albums }) {
-    const [covers, setCovers] = useState([]);
+    const [covers, setCovers] = useState<{cover: any; album_id: string; href: string}[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const fetchedAlbums = new Set();
 
     useEffect(() => {
         async function fetchAlbums() {
-            let covers = [];
+            let newCovers = [];
             for (const album of albums) {
-                const album_id = getLastPartOfUrl(album.sharedAlbumUrl);
-                if (!fetchedAlbums.has(album_id)) {
-                    const cover = await getCover(album_id);
-                    const slugUrl = "/photos/" + album.slug.current;
-                    covers = covers.concat({ cover, album_id, slugUrl });
-                    fetchedAlbums.add(album_id);
-                }
+              const album_id = getLastPartOfUrl(album.sharedAlbumUrl);
+              if (!fetchedAlbums.has(album_id)) {
+                const cover = await getCover(album_id);
+                const href = "/photos/" + album.slug.current;
+                newCovers = newCovers.concat({ cover, album_id, href });
+                fetchedAlbums.add(album_id);
+              }
             }
-            setCovers(covers);
+            setCovers(newCovers);
             setIsLoading(false);
-        }
-
-        fetchAlbums();
-    }, []);
+          }
+      
+          fetchAlbums();
+    }, [albums]);
 
 
     if (isLoading) {
@@ -46,25 +46,21 @@ export function Cover({ albums }) {
     }
 
     return (
-        <motion.div className="container mx-auto px-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-        >
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="mt-20">
                 {covers.map((cover, index) => (
+                <div className="mx-auto max-w-[50rem] rounded-md border" key={index}>
                     <SynoPhoto
                         id={cover.cover.id}
                         cache_key={cover.cover.cache_key}
                         album_id={cover.album_id}
                         size="sm"
-                        className="rounded overflow-hidden shadow-lg p-4"
+                        className="p-4 overflow-hidden rounded shadow-lg"
                         key={index}
-                        href={cover.slugUrl}
+                        href={cover.href}
                     />
+                </div>
                 ))}
             </div>
-        </motion.div>
     );
 }
 

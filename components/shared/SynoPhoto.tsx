@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from 'next/image';
+import Link from "next/link";
 
 export default function SynoPhoto({ id, cache_key, album_id, size, className, href = "#" }) {
     const loading = false;
@@ -19,15 +21,13 @@ export default function SynoPhoto({ id, cache_key, album_id, size, className, hr
             id
     }
 
-    const [hover, setHover] = useState(false);
     return (
-        <div className={`shadow-lg rounded-lg overflow-hidden ${className}`}>
-            <a href={href} target="_blank" rel="noopener noreferrer" className="group">
-                <img src={url} alt="thumbnail" className="w-full h-full object-cover" />
-                <div className="overlay group-hover:block hidden">
-                    <p>Click to view original</p>
-                </div>
-            </a>
-        </div>
-    );
+        <Link href={href}>
+          <Image 
+                  src={url} 
+                  width={500}
+                  height={500}
+                  alt="Picture of the author"/>
+        </Link>
+      );
 }
